@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Drive ~ The Roadtrip Simulator</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link href="assets/drive.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Drive <a id="music" href="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1917917&color=ff6600&auto_play=true&show_artwork=true" target="_blank"><i class="icon-music"></i></a></h1>
+  <form id="form" target="trip" method="post" action="create">
+    <input type="hidden" id="records" name="records">
+    <label for="startAddress">From </label>
+    <input id="startAddress" type="text" placeholder="Start ( ex: 5th av, new york )" onkeydown="driver.invalidate()">
+    <label for="endAddress"> to </label>
+    <input id="endAddress" type="text" placeholder="End" onkeydown="driver.invalidate(event)">
+    <button type="button" class="btn btn-large" id="search" onclick="driver.search()"><i class="icon-search"></i></button>
+    <button type="button" class="btn btn-large" id="move" onclick="driver.move(true)"><i class="icon-chevron-up"></i></button>
+    <button type="button" class="btn btn-large btn-info" id="start" onclick="driver.start()"><i class="icon-dashboard"></i>Start</button>
+    <button type="button" class="btn btn-large btn-info" id="stop" onclick="driver.stop()"><i class="icon-dashboard"></i>Stop</button>
+    <button type="button" class="btn btn-large btn-info disabled" id="loading"><i class="icon-magic"></i><img src="/assets/load.gif"></button>
+  </form>
+  <iframe name="trip" id="trip"></iframe>
+  <div id="box">
+    <div id="map"></div>
+    <div id="directions">
+      <img src="trip/3540-3548.South.Las.Vegas.Boulevard,.Las.Vegas,.NV.89109,.USA.➔.3680.South.Las.Vegas.Boulevard,.Las.Vegas,.NV.89109,.USA"/>
+      <img src="trip/Voie.Georges.Pompidou,.75016.Paris,.France.➔.Voie.Georges.Pompidou,.75016.Paris,.France"/>
+      <img src="trip/1415.Golden.Gate.Bridge,.Mill.Valley,.CA.94941,.USA.➔.1415.Golden.Gate.Bridge,.Mill.Valley,.CA.94941,.USA"/>
+      <span>Start a search to create your own trip!</span>
+    </div>
+  </div>
+  <div id="streetview"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=en-US"></script>
+  <script src="assets/drive.js"></script>
+  <script>
+    var debug = location.href.indexOf('debug') !== -1;
+    var debugStreetView = location.href.indexOf('streetview') !== -1;
+    var driver = new Driver(debug, debugStreetView);
+  </script>
+</body>
+</html>
